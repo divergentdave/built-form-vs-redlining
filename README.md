@@ -7,4 +7,4 @@ Map data was obtained from
 and from
 [Mapping Inequality](https://dsl.richmond.edu/panorama/redlining/#city=minneapolis-mn");
 
-The combined map is posted on S3 at [https://s3.ca-central-1.amazonaws.com/divergentdave-geojson/map.html].
+The combined map is posted on S3 at https://s3.ca-central-1.amazonaws.com/divergentdave-geojson/map.html.
