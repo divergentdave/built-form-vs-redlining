@@ -21,6 +21,13 @@
     body { margin:0; padding:0; }
     #map { position: absolute; top:0; bottom:0; right:0; left:0; }
 
+    .leaflet-interactive {
+      /* The SVG isn't actually interactive, so don't use the "pointer" cursor */
+      cursor: grab;
+      cursor: -webkit-grab;
+      cursor: -moz-grab;
+    }
+
     /* drop shadow like Leaflet */
     .holc-legend, .bf-legend, .opacity-control {
       background-color: white;
@@ -30,6 +37,20 @@
     }
     .holc-legend, .bf-legend {
       max-width: 12em;
+      cursor: pointer;
+    }
+    .holc-legend h3, .bf-legend h3 {
+      margin: 0;
+    }
+
+    .collapsed div {
+      display: none;
+    }
+    .holc-legend:not(.collapsed):before, .bf-legend:not(.collapsed):before {
+      content: "\1F5D9";
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
     /* color legend like the original Mapping Inequality app */
@@ -174,11 +195,16 @@
     var h3 = document.createElement("h3");
     h3.appendChild(document.createTextNode("HOLC Redlining Map"));
     div.appendChild(h3);
-    div.appendChild(document.createTextNode("Source: "));
+    var div2 = document.createElement("div");
+    L.DomEvent.on(div, "click", function(e) {
+      if (e.target.tagName == "A") return;
+      div.classList.toggle("collapsed");
+    });
+    div2.appendChild(document.createTextNode("Source: "));
     var a = document.createElement("a");
     a.setAttribute("href", "https://dsl.richmond.edu/panorama/redlining/#city=minneapolis-mn");
     a.appendChild(document.createTextNode("Mapping Inequality project"));
-    div.appendChild(a);
+    div2.appendChild(a);
     var ul = document.createElement("ul");
     for (var grade of holcGrades) {
       var li = document.createElement("li");
@@ -187,7 +213,8 @@
       li.appendChild(span);
       ul.appendChild(li);
     }
-    div.appendChild(ul);
+    div2.appendChild(ul);
+    div.appendChild(div2);
     return div;
   };
   holcLegend.addTo(map);
@@ -199,11 +226,16 @@
     var h3 = document.createElement("h3");
     h3.appendChild(document.createTextNode("Minneapolis 2040 Comp. Plan Draft Built Form Map"));
     div.appendChild(h3);
-    div.appendChild(document.createTextNode("Source: "));
+    var div2 = document.createElement("div");
+    L.DomEvent.on(div, "click", function(e) {
+      if (e.target.tagName == "A") return;
+      div.classList.toggle("collapsed");
+    });
+    div2.appendChild(document.createTextNode("Source: "));
     var a = document.createElement("a");
     a.setAttribute("href", "https://minneapolis2040.com/topics/land-use-built-form/");
     a.appendChild(document.createTextNode("Minneapolis 2040"));
-    div.appendChild(a);
+    div2.appendChild(a);
     var ul = document.createElement("ul");
     for (var district of bfDistricts) {
       var li = document.createElement("li");
@@ -212,7 +244,8 @@
       li.appendChild(span);
       ul.appendChild(li);
     }
-    div.appendChild(ul);
+    div2.appendChild(ul);
+    div.appendChild(div2);
     return div;
   };
   bfLegend.addTo(map);
@@ -248,7 +281,7 @@
         input.setAttribute("min", "0");
         input.setAttribute("max", "100");
         input.setAttribute("value", "80");
-        input.addEventListener("input", function(e) {
+        L.DomEvent.on(input, "input", function(e) {
           var opacity = input.value / 100;
           holcLayer.setStyle({
             opacity: opacity,
