@@ -6,7 +6,7 @@ Corporation (HOLC).
 Map data was obtained from
 [Minneapolis 2040](https://minneapolis2040.com/topics/land-use-built-form/)
 and from
-[Mapping Inequality](https://dsl.richmond.edu/panorama/redlining/#city=minneapolis-mn");
+[Mapping Inequality](https://dsl.richmond.edu/panorama/redlining/#city=minneapolis-mn").
 
 ## Interactive Map
 The combined map is available at https://s3.ca-central-1.amazonaws.com/divergentdave-geojson/map.html.
