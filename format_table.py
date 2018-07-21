@@ -56,7 +56,7 @@ expected = pd.DataFrame(
 excess = df - expected
 excess = excess.rename(columns={"Area Fraction": "Excess Area Fraction"})
 excess_html = (excess.style.background_gradient(cmap="bwr")
-    .format("{:,.3%}".format)
+    .format("{:+,.3%}".format)
     .render())
 excess_html = "\n".join(line for line in excess_html.split("\n")
                         if line.strip())
